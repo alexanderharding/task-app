@@ -9,6 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class LoginComponent implements OnInit {
   readonly pageTitle = 'Login';
   readonly loginForm: FormGroup = this.buildForm();
+  isSubmitted = false;
 
   private readonly emailValidationMessages = {
     required: 'Please enter your email address.',
@@ -26,6 +27,10 @@ export class LoginComponent implements OnInit {
   constructor(private readonly fb: FormBuilder) {}
 
   ngOnInit(): void {}
+
+  onSubmit(form: FormGroup): void {
+    if (!this.isSubmitted) this.isSubmitted = true;
+  }
 
   getEmailValidationMessage(): Observable<string> {
     return this.emailMessageSubject.asObservable();

@@ -49,6 +49,22 @@ describe('LoginComponent', () => {
     });
   });
 
+  it('should have set isSubmitted correctly', () => {
+    fixture.detectChanges();
+
+    expect(component.isSubmitted).toBeFalse();
+  });
+
+  describe('onSubmit', () => {
+    it('should set isSubmitted to true', () => {
+      fixture.detectChanges();
+
+      component.onSubmit(component.loginForm);
+
+      expect(component.isSubmitted).toBeTrue();
+    });
+  });
+
   describe('getEmailValidationMessage', () => {
     it('should return correct value', () => {
       fixture.detectChanges();

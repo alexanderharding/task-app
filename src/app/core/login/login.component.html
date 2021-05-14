@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
   <div class="col-sm-8 col-lg-6 col-xl-4">
     <h1 class="text-white display-4 mb-3">{{ pageTitle }}</h1>
-    <form [formGroup]="loginForm" novalidate>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
       <div class="form-floating mb-3">
         <input
           type="email"
@@ -9,7 +9,9 @@
           id="emailControl"
           formControlName="email"
           placeholder="name@example.com"
-          [class]="{ 'is-invalid': getEmailValidationMessage() | async }"
+          [class]="{
+            'is-invalid': (getEmailValidationMessage() | async) && isSubmitted
+          }"
         />
         <label for="emailControl">Email address</label>
         <div class="invalid-tooltip">
@@ -23,7 +25,10 @@
           id="passwordControl"
           formControlName="password"
           placeholder="Password"
-          [class]="{ 'is-invalid': getPasswordValidationMessage() | async }"
+          [class]="{
+            'is-invalid':
+              (getPasswordValidationMessage() | async) && isSubmitted
+          }"
         />
         <label for="passwordControl">Password</label>
         <div class="invalid-tooltip">
