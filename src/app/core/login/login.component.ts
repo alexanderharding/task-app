@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   private readonly subscriptions: Subscription[] = [];
   private readonly emailValidationMessages: any = {
     required: 'Please enter your email address.',
+    email: 'Please enter a valid email address.',
   };
   private readonly passwordValidationMessages: any = {
     required: 'Please enter your password.',
@@ -55,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private buildForm(): FormGroup {
     return this.fb.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
