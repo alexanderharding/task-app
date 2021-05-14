@@ -1,24 +1,34 @@
 <div class="row justify-content-center">
   <div class="col-sm-8 col-lg-6 col-xl-4">
     <h1 class="text-white display-4 mb-3">{{ pageTitle }}</h1>
-    <form>
+    <form [formGroup]="loginForm" novalidate>
       <div class="form-floating mb-3">
         <input
           type="email"
           class="form-control"
           id="emailControl"
+          formControlName="email"
           placeholder="name@example.com"
+          [class]="{ 'is-invalid': getEmailValidationMessage() | async }"
         />
         <label for="emailControl">Email address</label>
+        <div class="invalid-tooltip">
+          <span>{{ getEmailValidationMessage() | async }}</span>
+        </div>
       </div>
       <div class="form-floating mb-3">
         <input
           type="password"
           class="form-control"
           id="passwordControl"
+          formControlName="password"
           placeholder="Password"
+          [class]="{ 'is-invalid': getPasswordValidationMessage() | async }"
         />
         <label for="passwordControl">Password</label>
+        <div class="invalid-tooltip">
+          <span>{{ getPasswordValidationMessage() | async }}</span>
+        </div>
       </div>
       <div class="d-flex justify-content-end">
         <input
