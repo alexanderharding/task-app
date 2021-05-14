@@ -9,8 +9,10 @@
           id="emailControl"
           formControlName="email"
           placeholder="name@example.com"
+          autoComplete="email"
           [class]="{
-            'is-invalid': (getEmailValidationMessage() | async) && isSubmitted
+            'is-invalid': (getEmailValidationMessage() | async) && isSubmitted,
+            'is-valid': (getEmailValidationMessage() | async) === ''
           }"
         />
         <label for="emailControl">Email address</label>
@@ -27,7 +29,8 @@
           placeholder="Password"
           [class]="{
             'is-invalid':
-              (getPasswordValidationMessage() | async) && isSubmitted
+              (getPasswordValidationMessage() | async) && isSubmitted,
+            'is-valid': (getPasswordValidationMessage() | async) === ''
           }"
         />
         <label for="passwordControl">Password</label>
