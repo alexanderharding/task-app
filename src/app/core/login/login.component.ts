@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 @Component({
   templateUrl: './login.component.html',
@@ -11,6 +16,7 @@ export class LoginComponent implements OnInit {
   readonly loginForm: FormGroup = this.buildForm();
   isSubmitted = false;
 
+  private readonly subscriptions: Subscription[] = [];
   private readonly emailValidationMessages = {
     required: 'Please enter your email address.',
   };
@@ -45,5 +51,9 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
+  }
+
+  private createSubscription(c: AbstractControl): Subscription {
+    return c.valueChanges.subscribe();
   }
 }
