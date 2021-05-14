@@ -56,4 +56,8 @@ export class LoginComponent implements OnInit {
   private createSubscription(c: AbstractControl): Subscription {
     return c.valueChanges.subscribe();
   }
+
+  private saveSubscription(s: Subscription): void {
+    this.subscriptions.push(s);
+  }
 }
