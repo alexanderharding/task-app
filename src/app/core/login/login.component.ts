@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
@@ -32,9 +33,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.passwordValidationMessages.required
   );
 
-  constructor(private readonly fb: FormBuilder) {}
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly title: Title
+  ) {}
 
   ngOnInit(): void {
+    this.title.setTitle(this.pageTitle);
     const emailControl = this.loginForm.get('email');
     if (emailControl) this.saveSub(this.createSub(emailControl, 'email'));
     const passwordControl = this.loginForm.get('password');

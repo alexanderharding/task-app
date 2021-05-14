@@ -5,13 +5,14 @@ import {
   tick,
 } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
+import { By, Title } from '@angular/platform-browser';
 
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let mockTitle: Title;
 
   const emailValidationMessages = {
     required: 'Please enter your email address.',
@@ -22,9 +23,11 @@ describe('LoginComponent', () => {
   };
 
   beforeEach(async () => {
+    mockTitle = jasmine.createSpyObj(['setTitle']);
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
       imports: [ReactiveFormsModule],
+      providers: [{ provide: Title, useValue: mockTitle }],
     }).compileComponents();
   });
 
@@ -58,6 +61,13 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
 
     expect(component.isSubmitted).toBeFalse();
+  });
+
+  it(`should have called setTitle method on Title service with correct
+    value`, () => {
+    fixture.detectChanges();
+
+    expect(mockTitle.setTitle).toHaveBeenCalledOnceWith(component.pageTitle);
   });
 
   describe('loginForm', () => {
