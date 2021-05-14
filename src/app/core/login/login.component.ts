@@ -13,7 +13,7 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  readonly pageTitle = 'Login';
+  readonly pageTitle = 'Log in to Task App';
   readonly loginForm: FormGroup = this.buildForm();
   isSubmitted = false;
 
