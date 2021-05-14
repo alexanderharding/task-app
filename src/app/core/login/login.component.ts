@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   templateUrl: './login.component.html',
@@ -6,8 +8,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   readonly pageTitle = 'Login';
+  readonly loginForm: FormGroup = this.buildForm();
 
-  constructor() {}
+  private readonly emailValidationMessages = {
+    required: 'Please enter your email address.',
+  };
+  private readonly passwordValidationMessages = {
+    required: 'Please enter your password.',
+  };
+  private readonly emailMessageSubject = new BehaviorSubject<string>(
+    this.emailValidationMessages.required
+  );
+  private readonly passwordMessageSubject = new BehaviorSubject<string>(
+    this.passwordValidationMessages.required
+  );
+
+  constructor(private readonly fb: FormBuilder) {}
 
   ngOnInit(): void {}
+
+  getEmailValidationMessage(): Observable<string> {
+    return this.emailMessageSubject.asObservable();
+  }
+
+  getPasswordValidationMessage(): Observable<string> {
+    return this.passwordMessageSubject.asObservable();
+  }
+
+  private buildForm(): FormGroup {
+    return this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
 }
